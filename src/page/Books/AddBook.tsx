@@ -1,5 +1,10 @@
+import Header from "../../components/Header";
+
 export default function AddBook() {
   return (
-    <div>AddBook</div>
+    <div>
+      <Header></Header>
+      <div>AddBook</div>
+    </div>
   )
 }

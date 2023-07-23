@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLoginMutation } from '../../redux/features/user/userApi';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Header from '../../components/Header';
 
 
 export default function Login() {
@@ -39,6 +40,9 @@ export default function Login() {
   };
 
   return (
+    <div>
+      <Header></Header>
+   
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
@@ -86,10 +90,14 @@ export default function Login() {
               disabled={isLoading}
             >
               {isLoading ? 'Logging in...' : 'Login'}
-            </button>
+              </button>
+              <p>Don't Have an account? please <Link to="/registration"
+              className="text-indigo-700 hover:bg-indigo-600 hover:text-white rounded p-2 text-sm font-medium"
+              >register</Link> </p>
           </div>
         </form>
       </div>
     </div>
+     </div>
   );
 }
