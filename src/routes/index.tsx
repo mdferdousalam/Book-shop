@@ -26,7 +26,27 @@ const routes = createBrowserRouter([
     },
     {
         path: "/registereduserlayout",
-        element:<RegisteredUserLayout children={undefined}></RegisteredUserLayout>
+        element: <RegisteredUserLayout children={undefined}></RegisteredUserLayout>,
+        children: [
+            
+        ]
+        
+    },
+    {
+        path: "/registereduserlayout",
+        element: <RegisteredUserLayout children={undefined}></RegisteredUserLayout>,
+        children: [
+            
+        ]
+        
+    },
+    {
+        path: "/registereduserlayout",
+        element: <RegisteredUserLayout children={undefined}></RegisteredUserLayout>,
+        children: [
+            
+        ]
+        
     },
     {
         path: "/addbook",

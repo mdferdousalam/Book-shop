@@ -3,7 +3,7 @@ import { IUser, IUserLoginResponse } from "../../../types/User";
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://book-shop-r8eq.onrender.com/api/v1/auth",
+    baseUrl: "https://book-shop-server-theta.vercel.app/api/v1/auth",
   }),
   endpoints: (builder) => ({
     register: builder.mutation<IUser, Partial<IUser>>({
