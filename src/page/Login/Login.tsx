@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useLoginMutation } from '../../redux/features/user/userApi';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Login() {
+    const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -27,6 +30,7 @@ export default function Login() {
         console.log('Login successful', data);
          // Store the access token in localStorage
         localStorage.setItem('accessToken', data.data.accessToken);
+         navigate('/home');
       })
       .catch((error) => {
         // Login failed, handle error (e.g., show error message)
