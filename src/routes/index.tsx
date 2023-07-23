@@ -1,12 +1,12 @@
 import {createBrowserRouter} from "react-router-dom"
-import Home from "../page/Home";
+import Home from "../page/Home/Home";
 import App from "../App";
-import Login from "../page/Login";
-import Registration from "../page/Registration";
-import AddBook from "../page/AddBook";
-import BookDetails from "../page/BookDetails";
-import Profile from "../page/Profile";
-import NotFound from "../page/NotFound";
+import Login from "../page/Login/Login";
+import Registration from "../page/Registration/Registration";
+import AddBook from "../page/Books/AddBook";
+import BookDetails from "../page/Books/BookDetails";
+import Profile from "../page/Profile/Profile";
+import NotFound from "../page/ErrorPage/NotFound";
 const routes = createBrowserRouter([
     {
         path: "/",
