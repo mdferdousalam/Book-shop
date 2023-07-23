@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { IUser, UserRole } from '../../types/User';
 import { useRegisterMutation } from '../../redux/features/user/userApi';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Registration() {
+    const navigate = useNavigate();
   const [formData, setFormData] = useState<Partial<IUser>>({
     email: '',
     phoneNumber: '',
@@ -13,10 +15,6 @@ export default function Registration() {
       firstName: '',
       lastName: '',
     },
-    address: '',
-    budget: 0,
-    income: 0,
-    books: [],
   });
 
   const [register, { isLoading }] = useRegisterMutation();
@@ -51,7 +49,8 @@ export default function Registration() {
     register(formData)
       .unwrap()
       .then((data) => {
-        // Registration successful, handle success (e.g., redirect to dashboard)
+       
+        navigate('/login');
         console.log('Registration successful', data);
       })
       .catch((error) => {

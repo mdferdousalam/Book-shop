@@ -7,6 +7,7 @@ import AddBook from "../page/Books/AddBook";
 import BookDetails from "../page/Books/BookDetails";
 import Profile from "../page/Profile/Profile";
 import NotFound from "../page/ErrorPage/NotFound";
+import RegisteredUserLayout from "../layout/registeredUserLayout";
 const routes = createBrowserRouter([
     {
         path: "/",
@@ -23,6 +24,10 @@ const routes = createBrowserRouter([
     {
         path: "/registration",
         element:<Registration></Registration>
+    },
+    {
+        path: "/registereduserlayout",
+        element:<RegisteredUserLayout children={undefined}></RegisteredUserLayout>
     },
     {
         path: "/addbook",

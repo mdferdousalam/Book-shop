@@ -22,8 +22,11 @@ export default function Login() {
     login(formData)
       .unwrap()
       .then((data) => {
+        
         // Login successful, handle success (e.g., redirect to dashboard)
         console.log('Login successful', data);
+         // Store the access token in localStorage
+        localStorage.setItem('accessToken', data.data.accessToken);
       })
       .catch((error) => {
         // Login failed, handle error (e.g., show error message)

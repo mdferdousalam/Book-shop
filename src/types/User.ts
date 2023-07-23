@@ -1,5 +1,5 @@
 export type IUser = {
-  id?: string;
+   id?: string;
   phoneNumber?: string;
   email?: string;
   role?: UserRole;
@@ -8,16 +8,11 @@ export type IUser = {
     firstName?: string;
     lastName?: string;
   };
-  address?: string;
-  budget?: number;
-  income?: number;
   createdAt?: Date;
   updatedAt?: Date;
-  books?: string[]; // Assuming the book IDs are stored as strings
 };
 
 export enum UserRole {
-  Guest = "guest",
   RegisteredUser = "registeredUser",
   Admin = "admin",
   AuthorPublisher = "authorPublisher",
@@ -27,4 +22,13 @@ export enum UserRole {
 export type IUserLoginInput = {
   email: string;
   password: string;
+};
+
+export type IUserLoginResponse = {
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: {
+    accessToken: string;
+  };
 };

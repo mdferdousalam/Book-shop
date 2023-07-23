@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IUser } from "../../../types/User";
+import { IUser, IUserLoginResponse } from "../../../types/User";
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -13,7 +13,10 @@ export const api = createApi({
         body,
       }),
     }),
-    login: builder.mutation<IUser, { email: string; password: string }>({
+    login: builder.mutation<
+      IUserLoginResponse,
+      { email: string; password: string }
+    >({
       query: ({ email, password }) => ({
         url: "/login",
         method: "POST",
