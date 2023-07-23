@@ -3,9 +3,15 @@ import { Link } from 'react-router-dom';
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
+  const accessToken = localStorage.getItem('accessToken');
 
   const handleMenuToggle = () => {
     setShowMenu((prevShowMenu) => !prevShowMenu);
+  };
+
+  const handleLogout = () => {
+    // Remove the accessToken from localStorage
+    localStorage.removeItem('accessToken');
   };
 
   return (
@@ -26,30 +32,44 @@ export default function Header() {
                 >
                   Home
                 </Link>
-                <Link
-                  to="/login"
-                  className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/registration"
-                  className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Register
-                </Link>
-                <Link
-                  to="/dashboard"
-                  className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/addbook"
-                  className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Add Book
-                </Link>
+                {!accessToken ? (
+                  <>
+                    <Link
+                      to="/login"
+                      className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      to="/registration"
+                      className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Register
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to="/"
+                      onClick={handleLogout}
+                      className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Logout
+                    </Link>
+                    <Link
+                      to="/dashboard"
+                      className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      to="/addbook"
+                      className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Add Book
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -104,30 +124,44 @@ export default function Header() {
             >
               Home
             </Link>
-            <Link
-              to="/login"
-              className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Login
-            </Link>
-            <Link
-              to="/registration"
-              className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Register
-            </Link>
-            <Link
-              to="/dashboard"
-              className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Dashboard
-            </Link>
-            <Link
-              to="/addbook"
-              className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Add Book
-            </Link>
+            {!accessToken ? (
+              <>
+                <Link
+                  to="/login"
+                  className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/registration"
+                  className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Register
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/"
+                  onClick={handleLogout}
+                  className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Logout
+                </Link>
+                <Link
+                  to="/dashboard"
+                  className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  to="/addbook"
+                  className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Add Book
+                </Link>
+              </>
+            )}
           </div>
         )}
       </div>
