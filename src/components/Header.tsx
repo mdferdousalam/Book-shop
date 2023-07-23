@@ -1,9 +1,17 @@
 import  { useState } from 'react';
 import { Link } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
   const accessToken = localStorage.getItem('accessToken');
+  let userRole = null;
+
+  if (accessToken) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const decodedToken: any = jwt_decode(accessToken);
+    userRole = decodedToken.role;
+  }
 
   const handleMenuToggle = () => {
     setShowMenu((prevShowMenu) => !prevShowMenu);
@@ -55,19 +63,23 @@ export default function Header() {
                       className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                     >
                       Logout
-                    </Link>
+                     </Link>
                     <Link
-                      to="/dashboard"
-                      className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Dashboard
-                    </Link>
-                    <Link
-                      to="/addbook"
-                      className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Add Book
-                    </Link>
+                          to="/dashboard"
+                          className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                        >
+                          Dashboard
+                        </Link>
+                    {(userRole === 'admin' || userRole === 'authorPublisher') && (
+                      <>
+                        <Link
+                          to="/addbook"
+                          className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                        >
+                          Add Book
+                        </Link>
+                      </>
+                    )}
                   </>
                 )}
               </div>
@@ -148,18 +160,22 @@ export default function Header() {
                 >
                   Logout
                 </Link>
-                <Link
-                  to="/dashboard"
-                  className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/addbook"
-                  className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Add Book
-                </Link>
+                {(userRole === 'admin' || userRole === 'authorPublisher') && (
+                  <>
+                    <Link
+                      to="/dashboard"
+                      className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      to="/addbook"
+                      className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Add Book
+                    </Link>
+                  </>
+                )}
               </>
             )}
           </div>
