@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IUser, IUserLoginResponse } from "../../../types/User";
+import { ApiState } from "./apiSlice";
+interface ApiState {
+  loading: boolean;
+}
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -23,6 +27,13 @@ export const api = createApi({
         body: { email, password },
       }),
     }),
+  }),
+  reducerPath: "api",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://book-shop-server-theta.vercel.app/api/v1/auth",
+  }),
+  endpoints: (builder) => ({
+    // ... Define your endpoints here ...
   }),
 });
 

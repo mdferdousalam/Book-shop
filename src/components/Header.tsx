@@ -1,16 +1,23 @@
-import  { useState } from 'react';
-import { Link } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { setUserRole } from "../redux/features/user/userRoleSlice";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
-  const accessToken = localStorage.getItem('accessToken');
-  let userRole = null;
-
+  const accessToken = localStorage.getItem("accessToken");
+  const userRole = useSelector((state: RootState) => state.userRole);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   if (accessToken) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const decodedToken: any = jwt_decode(accessToken);
-    userRole = decodedToken.role;
+    const decodedUserRole = decodedToken.role;
+    if (userRole !== decodedUserRole) {
+      dispatch(setUserRole(decodedUserRole));
+    }
   }
 
   const handleMenuToggle = () => {
@@ -19,7 +26,19 @@ export default function Header() {
 
   const handleLogout = () => {
     // Remove the accessToken from localStorage
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem("accessToken");
+  };
+
+  const handleDashboardClick = () => {
+    if (userRole === "admin") {
+      navigate("/adminlayout");
+    } else if (userRole === "authorPublisher") {
+      navigate("/authorPublisherlayout");
+    } else if (userRole === "moderator") {
+      navigate("/moderatorlayout");
+    } else if (userRole === "registeredUser") {
+      navigate("/registereduserlayout");
+    }
   };
 
   return (
@@ -63,14 +82,16 @@ export default function Header() {
                       className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                     >
                       Logout
-                     </Link>
+                    </Link>
                     <Link
-                          to="/dashboard"
-                          className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                        >
-                          Dashboard
-                        </Link>
-                    {(userRole === 'admin' || userRole === 'authorPublisher') && (
+                      to="/dashboard"
+                      className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                      onClick={handleDashboardClick}
+                    >
+                      Dashboard
+                    </Link>
+                    {(userRole === "admin" ||
+                      userRole === "authorPublisher") && (
                       <>
                         <Link
                           to="/addbook"
@@ -160,14 +181,15 @@ export default function Header() {
                 >
                   Logout
                 </Link>
-                {(userRole === 'admin' || userRole === 'authorPublisher') && (
+                <Link
+                  to="/dashboard"
+                  className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                  onClick={handleDashboardClick}
+                >
+                  Dashboard
+                </Link>
+                {(userRole === "admin" || userRole === "authorPublisher") && (
                   <>
-                    <Link
-                      to="/dashboard"
-                      className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      Dashboard
-                    </Link>
                     <Link
                       to="/addbook"
                       className="block text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
