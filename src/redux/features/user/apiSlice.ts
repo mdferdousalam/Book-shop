@@ -1,6 +1,4 @@
-// apiSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
 
 interface ApiState {
   loading: boolean;
@@ -11,7 +9,7 @@ const initialState: ApiState = {
 };
 
 const apiSlice = createSlice({
-  name: "api",
+  name: "authApi",
   initialState,
   reducers: {
     setLoading: (state, action: PayloadAction<boolean>) => {
@@ -23,6 +21,3 @@ const apiSlice = createSlice({
 export const { setLoading } = apiSlice.actions;
 
 export default apiSlice.reducer;
-
-// Create a selector to access the API state from the RootState
-export const selectApiState = (state: RootState) => state.api;

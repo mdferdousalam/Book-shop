@@ -1,7 +1,6 @@
-
+import UseTitle from "../../hooks/UseTitle";
 
 export default function Profile() {
-  return (
-    <div>Profile</div>
-  )
+  UseTitle("profile");
+  return <div>Profile</div>;
 }

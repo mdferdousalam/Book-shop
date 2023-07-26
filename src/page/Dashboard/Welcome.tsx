@@ -1,3 +1,6 @@
+import UseTitle from "../../hooks/UseTitle";
+
 export default function Welcome() {
-  return <div>Welcome</div>;
+  UseTitle("Welcome");
+  return <div>Welcome to your Book shop home Home</div>;
 }

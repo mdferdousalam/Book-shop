@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,14 +11,16 @@ export default function Header() {
   const userRole = useSelector((state: RootState) => state.userRole);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  if (accessToken) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const decodedToken: any = jwt_decode(accessToken);
-    const decodedUserRole = decodedToken.role;
-    if (userRole !== decodedUserRole) {
-      dispatch(setUserRole(decodedUserRole));
+  useEffect(() => {
+    if (accessToken) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const decodedToken: any = jwt_decode(accessToken);
+      const decodedUserRole = decodedToken.role;
+      if (userRole !== decodedUserRole) {
+        dispatch(setUserRole(decodedUserRole));
+      }
     }
-  }
+  }, [accessToken, dispatch, userRole]);
 
   const handleMenuToggle = () => {
     setShowMenu((prevShowMenu) => !prevShowMenu);

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useLoginMutation } from "../../redux/features/user/userApi";
 import { Link, useNavigate } from "react-router-dom";
-
+import UseTitle from "../../hooks/UseTitle";
 
 export default function Login() {
+  UseTitle("Login");
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",

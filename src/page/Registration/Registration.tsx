@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { IUser, UserRole } from "../../types/User";
 import { useRegisterMutation } from "../../redux/features/user/userApi";
 import { Link, useNavigate } from "react-router-dom";
-
+import UseTitle from "../../hooks/UseTitle";
 
 export default function Registration() {
+  UseTitle("Register");
   const navigate = useNavigate();
   const [formData, setFormData] = useState<Partial<IUser>>({
     email: "",
@@ -47,11 +48,12 @@ export default function Registration() {
     e.preventDefault();
     register(formData)
       .unwrap()
-      .then((data) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .then((data: any) => {
         navigate("/login");
         console.log("Registration successful", data);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         // Registration failed, handle error (e.g., show error message)
         console.error("Registration failed", error);
       });
@@ -59,7 +61,6 @@ export default function Registration() {
 
   return (
     <div>
-  
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>

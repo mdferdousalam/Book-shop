@@ -1,11 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IUser, IUserLoginResponse } from "../../../types/User";
-import { ApiState } from "./apiSlice";
-interface ApiState {
-  loading: boolean;
-}
 
-export const api = createApi({
+export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://book-shop-server-theta.vercel.app/api/v1/auth",
   }),
@@ -27,14 +23,18 @@ export const api = createApi({
         body: { email, password },
       }),
     }),
+    requestUserRole: builder.mutation<
+      { message: string },
+      { userId: string; role: string }
+    >({
+      query: ({ userId, role }) => ({
+        url: `/request-user-role`,
+        method: "POST",
+        body: { userId, role },
+      }),
+    }),
   }),
-  reducerPath: "api",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://book-shop-server-theta.vercel.app/api/v1/auth",
-  }),
-  endpoints: (builder) => ({
-    // ... Define your endpoints here ...
-  }),
+  reducerPath: "authApi",
 });
 
-export const { useRegisterMutation, useLoginMutation } = api;
+export const { useRegisterMutation, useLoginMutation } = authApi;
