@@ -10,9 +10,8 @@ import MainLayout from "../layout/MainLayout";
 import Welcome from "../page/Dashboard/Welcome";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layout/DashboardLayout";
-import AdminRoute from "./AdminRoute";
 import Wishlist from "../page/WishList/Wishlist";
-import AuthorPublisherRoute from "./AuthorPublisherRoute";
+
 
 const routes = createBrowserRouter([
   {
@@ -36,30 +35,6 @@ const routes = createBrowserRouter([
         path: "/registration",
         element: <Registration></Registration>,
       },
-      //   {
-      //     path: "/apple",
-      //     element: (
-      //       <PrivateRoute>
-      //         <AppleCategory></AppleCategory>
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: "/samsung",
-      //     element: (
-      //       <PrivateRoute>
-      //         <SamsungCategory></SamsungCategory>
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: "/oppo",
-      //     element: (
-      //       <PrivateRoute>
-      //         <OppoCategory></OppoCategory>
-      //       </PrivateRoute>
-      //     ),
-      //   },
     ],
   },
   {
@@ -75,31 +50,7 @@ const routes = createBrowserRouter([
         path: "/dashboard",
         element: <Welcome></Welcome>,
       },
-      //   {
-      //     path: "/dashboard/allsellers",
-      //     element: (
-      //       <AdminRoute>
-      //         <AllSeller></AllSeller>
-      //       </AdminRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: "/dashboard/allbuyers",
-      //     element: (
-      //       <AdminRoute>
-      //         <AllBuyers></AllBuyers>
-      //       </AdminRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: "/dashboard/reportedproducts",
-      //     element: (
-      //       <AdminRoute>
-      //         <Reportedproducts></Reportedproducts>
-      //       </AdminRoute>
-      //     ),
-      //   },
-      //   {
+      //    {
       //     path: "/dashboard/orders",
       //     element: <MyOrders></MyOrders>,
       //   },
@@ -109,13 +60,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/dashboard/addbook",
-        element: (
-          <AdminRoute>
-            <AuthorPublisherRoute>
-              <AddBook></AddBook>
-            </AuthorPublisherRoute>
-          </AdminRoute>
-        ),
+        element: <AddBook></AddBook>,
       },
       {
         path: "/dashboard/bookdetails",

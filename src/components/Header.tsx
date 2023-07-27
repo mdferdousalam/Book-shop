@@ -96,7 +96,7 @@ export default function Header() {
                       userRole === "authorPublisher") && (
                       <>
                         <Link
-                          to="/addbook"
+                          to="/dashboard/addbook"
                           className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                         >
                           Add Book
