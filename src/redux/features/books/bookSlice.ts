@@ -34,13 +34,13 @@ const bookSlice = createSlice({
       action: PayloadAction<{ bookId: string; updatedBook: IBook }>
     ) => {
       const { bookId, updatedBook } = action.payload;
-      const index = state.books.findIndex((book) => book.id === bookId);
+      const index = state.books.findIndex((book) => book._id === bookId);
       if (index !== -1) {
         state.books[index] = updatedBook;
       }
     },
     deleteBook: (state, action: PayloadAction<string>) => {
-      state.books = state.books.filter((book) => book.id !== action.payload);
+      state.books = state.books.filter((book) => book._id !== action.payload);
     },
   },
 });

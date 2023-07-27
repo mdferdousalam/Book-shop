@@ -11,7 +11,7 @@ import Welcome from "../page/Dashboard/Welcome";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layout/DashboardLayout";
 import Wishlist from "../page/WishList/Wishlist";
-
+import AllBooks from "../page/Books/AllBooks";
 
 const routes = createBrowserRouter([
   {
@@ -61,6 +61,10 @@ const routes = createBrowserRouter([
       {
         path: "/dashboard/addbook",
         element: <AddBook></AddBook>,
+      },
+      {
+        path: "/dashboard/books",
+        element: <AllBooks></AllBooks>,
       },
       {
         path: "/dashboard/bookdetails",
