@@ -35,6 +35,10 @@ const routes = createBrowserRouter([
         path: "/registration",
         element: <Registration></Registration>,
       },
+      {
+        path: "/bookdetails",
+        element: <BookDetails></BookDetails>,
+      },
     ],
   },
   {
@@ -50,10 +54,6 @@ const routes = createBrowserRouter([
         path: "/dashboard",
         element: <Welcome></Welcome>,
       },
-      //    {
-      //     path: "/dashboard/orders",
-      //     element: <MyOrders></MyOrders>,
-      //   },
       {
         path: "/dashboard/wishlist",
         element: <Wishlist></Wishlist>,

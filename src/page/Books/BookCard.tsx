@@ -1,6 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import { IBook } from "../../types/book.type";
-
+import { useDispatch } from "react-redux";
+import { selectBook } from "../../redux/features/books/bookSlice";
 const BookCard = ({ book }: { book: IBook }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleDetailsClick = () => {
+    dispatch(selectBook(book._id));
+    navigate("/bookdetails");
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4">
       <img
@@ -16,6 +26,12 @@ const BookCard = ({ book }: { book: IBook }) => {
         <p className="text-gray-700">
           Publication Year: {book.publicationYear}
         </p>
+        <button
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md transition-all hover:bg-blue-600"
+          onClick={handleDetailsClick}
+        >
+          Details
+        </button>
       </div>
     </div>
   );

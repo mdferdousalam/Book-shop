@@ -4,6 +4,7 @@ import { IBook } from "../../../types/book.type";
 interface BookState {
   loading: boolean;
   books: IBook[];
+  selectedBookId: string | null;
   error: string | null;
 }
 
@@ -11,6 +12,7 @@ const initialState: BookState = {
   loading: false,
   books: [],
   error: null,
+  selectedBookId: null,
 };
 
 const bookSlice = createSlice({
@@ -28,6 +30,9 @@ const bookSlice = createSlice({
     },
     addBook: (state, action: PayloadAction<IBook>) => {
       state.books.push(action.payload);
+    },
+    selectBook: (state, action: PayloadAction<string | null>) => {
+      state.selectedBookId = action.payload;
     },
     updateBook: (
       state,
@@ -52,6 +57,7 @@ export const {
   addBook,
   updateBook,
   deleteBook,
+  selectBook,
 } = bookSlice.actions;
 
 export default bookSlice.reducer;
