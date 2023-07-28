@@ -32,13 +32,13 @@ export default function Header() {
   };
 
   const handleDashboardClick = () => {
-    if (userRole === "admin") {
+    if (userRole.role === "admin") {
       navigate("/adminlayout");
-    } else if (userRole === "authorPublisher") {
+    } else if (userRole.role === "authorPublisher") {
       navigate("/authorPublisherlayout");
-    } else if (userRole === "moderator") {
+    } else if (userRole.role === "moderator") {
       navigate("/moderatorlayout");
-    } else if (userRole === "registeredUser") {
+    } else if (userRole.role === "registeredUser") {
       navigate("/registereduserlayout");
     }
   };
@@ -92,8 +92,8 @@ export default function Header() {
                     >
                       Dashboard
                     </Link>
-                    {(userRole === "admin" ||
-                      userRole === "authorPublisher") && (
+                    {(userRole.role === "admin" ||
+                      userRole.role === "authorPublisher") && (
                       <>
                         <Link
                           to="/dashboard/addbook"
@@ -190,7 +190,8 @@ export default function Header() {
                 >
                   Dashboard
                 </Link>
-                {(userRole === "admin" || userRole === "authorPublisher") && (
+                {(userRole.role === "admin" ||
+                  userRole.role === "authorPublisher") && (
                   <>
                     <Link
                       to="/addbook"

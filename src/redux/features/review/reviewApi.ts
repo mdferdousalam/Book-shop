@@ -3,7 +3,8 @@ import { IReview } from "../../../types/book.type";
 
 export const reviewApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1/review/",
+    baseUrl:
+      "https://book-shop-server-mp3ytvdwe-mdferdousalam.vercel.app/api/v1/review/",
   }),
   endpoints: (builder) => ({
     createReview: builder.mutation<IReview, Partial<IReview>>({

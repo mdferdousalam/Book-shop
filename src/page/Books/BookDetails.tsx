@@ -15,22 +15,22 @@ const BookDetailsPage = () => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [review, setReview] = useState("");
+  const [userId, setUserId] = useState("");
+  const [rating, setRating] = useState<number>(0);
   // Get the userId from localStorage accessToken
   const accessToken = localStorage.getItem("accessToken") as string;
-  console.log("Access Token:", accessToken);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const decodedToken = jwtDecode<any>(accessToken);
-  console.log("Decoded Token:", decodedToken);
-  const userId = decodedToken._id;
-  console.log("User ID:", userId);
+  if (accessToken) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const decodedToken = jwtDecode<any>(accessToken);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setUserId(decodedToken._id);
+  }
 
   const selectedBookId = useSelector(
     (state: RootState) => state.book.selectedBookId
   );
-  console.log("selectedBookId:", selectedBookId);
-  const [review, setReview] = useState("");
-  const [rating, setRating] = useState();
+
   const {
     data: selectedBook,
     isLoading,
@@ -44,9 +44,6 @@ const BookDetailsPage = () => {
     isError: reviewsError,
   } = useGetAllReviewsForBookQuery(selectedBookId!);
 
-  // Get the userId from the Redux store
-  // const userId = useSelector((state: RootState) => state.userRole.userId);
-  // console.log(userId);
   const [createReview] = useCreateReviewMutation();
   if (reviewsLoading) {
     return <div>Loading reviews...</div>;
@@ -100,7 +97,6 @@ const BookDetailsPage = () => {
           console.log(data);
         });
 
-      // Clear the review text after submission
       setReview("");
     } catch (error) {
       console.error("Error submitting review:", error);

@@ -16,7 +16,7 @@ const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
   }
 
   // Check if userRole is 'admin'
-  if (userRole !== "admin") {
+  if (userRole.role !== "admin") {
     return <Navigate to="/unauthorized" replace />;
   }
 

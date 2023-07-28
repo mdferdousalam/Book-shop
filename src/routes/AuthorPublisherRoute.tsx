@@ -18,7 +18,7 @@ const AuthorPublisherRoute: React.FC<AuthorPublisherRouteProps> = ({
   }
 
   // Check if userRole is 'authorPublisher'
-  if (userRole !== "authorPublisher") {
+  if (userRole.role !== "authorPublisher") {
     return <Navigate to="/unauthorized" replace />;
   }
 
