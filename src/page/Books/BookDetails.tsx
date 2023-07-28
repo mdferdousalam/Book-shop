@@ -5,17 +5,32 @@ import { selectBook, deleteBook } from "../../redux/features/books/bookSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetSingleBookQuery } from "../../redux/features/books/booksApi";
+import {
+  useCreateReviewMutation,
+  useGetAllReviewsForBookQuery,
+} from "../../redux/features/review/reviewApi";
+import jwtDecode from "jwt-decode";
 
 const BookDetailsPage = () => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Get the userId from localStorage accessToken
+  const accessToken = localStorage.getItem("accessToken") as string;
+  console.log("Access Token:", accessToken);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const decodedToken = jwtDecode<any>(accessToken);
+  console.log("Decoded Token:", decodedToken);
+  const userId = decodedToken._id;
+  console.log("User ID:", userId);
+
   const selectedBookId = useSelector(
     (state: RootState) => state.book.selectedBookId
   );
   console.log("selectedBookId:", selectedBookId);
-
+  const [review, setReview] = useState("");
+  const [rating, setRating] = useState();
   const {
     data: selectedBook,
     isLoading,
@@ -23,6 +38,23 @@ const BookDetailsPage = () => {
   } = useGetSingleBookQuery(selectedBookId!);
   console.log("selectedBook:", selectedBook);
 
+  const {
+    data: reviews,
+    isLoading: reviewsLoading,
+    isError: reviewsError,
+  } = useGetAllReviewsForBookQuery(selectedBookId!);
+
+  // Get the userId from the Redux store
+  // const userId = useSelector((state: RootState) => state.userRole.userId);
+  // console.log(userId);
+  const [createReview] = useCreateReviewMutation();
+  if (reviewsLoading) {
+    return <div>Loading reviews...</div>;
+  }
+
+  if (reviewsError) {
+    return <div>Error fetching reviews</div>;
+  }
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -42,7 +74,7 @@ const BookDetailsPage = () => {
 
   const handleDeleteConfirmation = () => {
     dispatch(deleteBook(selectedBookId!));
-    navigate("/all-books");
+    navigate("/");
 
     if (!selectedBook) {
       return <div>No book selected.</div>;
@@ -51,6 +83,28 @@ const BookDetailsPage = () => {
 
   const handleCancelDelete = () => {
     setShowDeleteConfirmation(false);
+  };
+
+  const handleSubmitReview = async () => {
+    try {
+      const reviewData = {
+        bookId: selectedBookId!,
+        userId: userId,
+        rating: rating,
+        comment: review,
+      };
+
+      await createReview(reviewData)
+        .unwrap()
+        .then((data) => {
+          console.log(data);
+        });
+
+      // Clear the review text after submission
+      setReview("");
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
   };
 
   return (
@@ -74,15 +128,14 @@ const BookDetailsPage = () => {
           <p className="text-gray-700">
             Publication Year: {selectedBook?.data.publicationYear}
           </p>
-
           <h3 className="text-xl font-bold mt-6">Reviews</h3>
-          {selectedBook?.reviews && selectedBook?.reviews.length > 0 ? (
+          {reviews && reviews.length > 0 ? (
             <ul className="mt-4">
-              {selectedBook.reviews.map((review: IReview) => (
-                <li key={review.id} className="mb-2">
+              {reviews.map((review: IReview) => (
+                <li key={review._id} className="mb-2">
                   <p className="font-bold">Rating: {review.rating}</p>
                   <p className="text-gray-700">Comment: {review.comment}</p>
-                  <p className="text-gray-700">User: {review.user}</p>
+                  {/* You can display other review details here, e.g., User ID */}
                 </li>
               ))}
             </ul>
@@ -90,6 +143,31 @@ const BookDetailsPage = () => {
             <p className="mt-4">No reviews yet.</p>
           )}
         </div>
+      </div>
+
+      <div>
+        <input
+          type="number"
+          min={1}
+          max={5}
+          value={rating}
+          onChange={(e) => setRating(Number(e.target.value))}
+          className="w-1/2 px-3 mt-5 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          placeholder="Rating (1-5)"
+        />
+        <textarea
+          rows={4}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mt-4"
+          placeholder="Write your review..."
+          value={review}
+          onChange={(e) => setReview(e.target.value)} // Step 4: Capture review text
+        />
+        <button
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md mr-2 hover:bg-blue-600"
+          onClick={handleSubmitReview}
+        >
+          Submit Review
+        </button>
       </div>
 
       <div className="mt-8">

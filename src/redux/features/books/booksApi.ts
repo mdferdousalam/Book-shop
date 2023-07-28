@@ -3,7 +3,7 @@ import { IBook } from "../../../types/book.type";
 
 export const bookApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://book-shop-server-theta.vercel.app/api/v1/books",
+    baseUrl: "http://localhost:5000/api/v1/books",
   }),
   endpoints: (builder) => ({
     addBook: builder.mutation<IBook, Partial<IBook>>({
@@ -36,7 +36,7 @@ export const bookApi = createApi({
     }),
     getSingleBook: builder.query<IBook, string>({
       query: (id) => ({
-        url: `/${id}`,
+        url: `/bookdetails/${id}`,
         method: "GET",
       }),
     }),

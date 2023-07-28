@@ -10,7 +10,7 @@ export type IBook = {
 };
 
 export type IReview = {
-  id: string;
+  _id: string;
   rating: number;
   comment: string;
   user: string;

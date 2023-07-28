@@ -8,7 +8,7 @@ const BookCard = ({ book }: { book: IBook }) => {
 
   const handleDetailsClick = () => {
     dispatch(selectBook(book._id));
-    navigate("/bookdetails");
+    navigate(`/bookdetails/${book._id}`);
   };
 
   return (

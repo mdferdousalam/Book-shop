@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useLoginMutation } from "../../redux/features/user/userApi";
 import { Link, useNavigate } from "react-router-dom";
 import UseTitle from "../../hooks/UseTitle";
+// import { useDispatch } from "react-redux";
+import { setUserRole } from "../../redux/features/user/userRoleSlice";
+import jwtDecode from "jwt-decode";
+import { useAppDispatch } from "../../redux/hooks/hook";
 
 export default function Login() {
   UseTitle("Login");
@@ -10,7 +14,7 @@ export default function Login() {
     email: "",
     password: "",
   });
-
+  const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +34,16 @@ export default function Login() {
         console.log("Login successful", data);
         // Store the access token in localStorage
         localStorage.setItem("accessToken", data.data.accessToken);
+
+        // Decode the access token to get user data
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const decodedToken = jwtDecode<any>(data.data.accessToken);
+        console.log("Decoded token:", decodedToken);
+        // Dispatch the action to set the user role and userID in the store
+        dispatch(
+          setUserRole({ role: decodedToken.role, userId: decodedToken._id })
+        );
+
         navigate("/home");
       })
       .catch((error) => {

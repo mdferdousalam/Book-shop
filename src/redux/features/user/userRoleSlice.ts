@@ -1,13 +1,26 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState: string = "";
+interface UserRoleState {
+  role: string | null;
+  userId: string | null;
+}
+
+const initialState: UserRoleState = {
+  role: null,
+  userId: null,
+};
+
 
 const userRoleSlice = createSlice({
   name: "userRole",
   initialState,
   reducers: {
-    setUserRole: (state, action: PayloadAction<string>) => {
-      return action.payload; // Return the payload as the new state value
+    setUserRole: (
+      state,
+      action: PayloadAction<{ role: string; userId: string }>
+    ) => {
+      state.role = action.payload.role;
+      state.userId = action.payload.userId;
     },
   },
 });
