@@ -4,13 +4,9 @@ import { IBook } from "../../types/book.type";
 
 const AllBooks = () => {
   const { data: apiResponse, isLoading, isError } = useGetAllBooksQuery();
-console.log("API Response:", apiResponse);
-
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
   if (isError || !apiResponse) {
     return <div>Error fetching books</div>;
   }

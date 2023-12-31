@@ -11,6 +11,13 @@ import {
 } from "../../redux/features/review/reviewApi";
 import jwtDecode from "jwt-decode";
 
+
+// Function to fetch book data
+const useFetchBookData = (bookId: string) => {
+  return useGetSingleBookQuery(bookId);
+};
+
+
 const BookDetailsPage = () => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const dispatch = useDispatch();
@@ -31,12 +38,7 @@ const BookDetailsPage = () => {
     (state: RootState) => state.book.selectedBookId
   );
 
-  const {
-    data: selectedBook,
-    isLoading,
-    isError,
-  } = useGetSingleBookQuery(selectedBookId!);
-  console.log("selectedBook:", selectedBook);
+const { data: selectedBook, isLoading,   isError } = useFetchBookData(selectedBookId!);
 
   const {
     data: reviews,
@@ -52,6 +54,7 @@ const BookDetailsPage = () => {
   if (reviewsError) {
     return <div>Error fetching reviews</div>;
   }
+
   if (isLoading) {
     return <div>Loading...</div>;
   }

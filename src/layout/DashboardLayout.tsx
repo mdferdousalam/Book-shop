@@ -12,11 +12,7 @@ const DashboardLayout = () => {
     const decodedToken: any = jwt_decode(accessToken);
     userRole = decodedToken.role;
   }
-  const handleRoleRequest = () => {
-    // Implement the logic to handle the role request.
-    // For example, you can redirect the user to a new page with a form.
-    // Alternatively, you can display a modal with the form inside the dashboard.
-  };
+ 
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
@@ -33,19 +29,22 @@ const DashboardLayout = () => {
                 <li>
                   <Link to="/dashboard/">All Users</Link>
                 </li>
-                <li>
-                  <Link to="/dashboard/allBooks">All Books</Link>
-                </li>
+               
               </>
             )}
 
             {userRole === "authorPublisher" && (
-              <>
+              <> <li>
+              <Link to="/dashboard/orders">My Orders</Link>
+            </li>
+            <li>
+              <Link to="/dashboard/wishlist">Wish List</Link>
+            </li>
                 <li>
-                  <Link to="/dashboard/addbook">Add Products</Link>
+                  <Link to="/dashboard/addbook">Add Books</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/mybooks">My Products</Link>
+                  <Link to="/dashboard/mybooks">My Books</Link>
                 </li>
               </>
             )}
@@ -58,22 +57,27 @@ const DashboardLayout = () => {
                 <li>
                   <Link to="/dashboard/wishlist">Wish List</Link>
                 </li>
+                <li>
+                  <Link to="/dashboard/addbook">Add Books</Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/mybooks">My Books</Link>
+                </li>
               </>
             )}
             {userRole === "registeredUser" && (
               <>
-                <li>{/* <Link to="/dashboard/orders">My Orders</Link> */}</li>
+                <li><Link to="/dashboard/orders">My Orders</Link></li>
                 <li>
                   <Link to="/dashboard/wishlist">My Wish List</Link>
                 </li>
                 <li>
-                  <button
-                    onClick={handleRoleRequest}
-                    className="text-indigo hover:bg-gray-700 hover:text-white py-2 rounded-md text-sm font-medium"
-                  >
-                    Request Role
-                  </button>
+                  <Link to="/dashboard/addbook">Add Books</Link>
                 </li>
+                <li>
+                  <Link to="/dashboard/mybooks">My Books</Link>
+                </li>
+              
               </>
             )}
           </ul>

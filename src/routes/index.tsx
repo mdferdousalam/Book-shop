@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../page/Home/Home";
 import Login from "../page/Login/Login";
 import Registration from "../page/Registration/Registration";
 import AddBook from "../page/Books/AddBook";
@@ -12,6 +11,8 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layout/DashboardLayout";
 import Wishlist from "../page/WishList/Wishlist";
 import AllBooks from "../page/Books/AllBooks";
+import MyBooks from "../page/Books/MyBooks";
+import MyOrders from "../page/Books/MyOrders";
 
 const routes = createBrowserRouter([
   {
@@ -21,11 +22,11 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>,
+        element: <AllBooks></AllBooks>,
       },
       {
-        path: "/home",
-        element: <Home></Home>,
+        path: "/bookdetails/:id",
+        element: <BookDetails></BookDetails>,
       },
       {
         path: "/login",
@@ -34,10 +35,6 @@ const routes = createBrowserRouter([
       {
         path: "/registration",
         element: <Registration></Registration>,
-      },
-      {
-        path: "/bookdetails/:id",
-        element: <BookDetails></BookDetails>,
       },
     ],
   },
@@ -59,16 +56,16 @@ const routes = createBrowserRouter([
         element: <Wishlist></Wishlist>,
       },
       {
-        path: "/dashboard/addbook",
+        path: "/dashboard/mybooks",
+        element: <MyBooks></MyBooks>,
+      },
+      {
+        path: "/dashboard/orders",
         element: <AddBook></AddBook>,
       },
       {
-        path: "/dashboard/books",
-        element: <AllBooks></AllBooks>,
-      },
-      {
-        path: "/dashboard/bookdetails",
-        element: <BookDetails></BookDetails>,
+        path: "/dashboard/addbook",
+        element: <MyOrders></MyOrders>,
       },
       {
         path: "/dashboard/profile",

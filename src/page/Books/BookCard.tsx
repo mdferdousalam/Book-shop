@@ -10,6 +10,7 @@ const BookCard = ({ book }: { book: IBook }) => {
  const selectedBookId = useAppSelector((state)=> state.book.selectedBookId)
   const { data: singleBook, isLoading: singleBookLoading } = useGetSingleBookQuery(book._id);
   const handleDetailsClick = () => {
+    console.log("Clicked Book ID:", book._id);
     if (!singleBookLoading && singleBook) {
       dispatch(selectBook(book._id));
       navigate(`bookdetails/${book._id}`);

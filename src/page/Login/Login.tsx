@@ -44,7 +44,7 @@ export default function Login() {
           setUserRole({ role: decodedToken.role, userId: decodedToken._id })
         );
 
-        navigate("/home");
+        navigate("/");
       })
       .catch((error) => {
         // Login failed, handle error (e.g., show error message)
