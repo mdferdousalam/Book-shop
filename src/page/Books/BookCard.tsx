@@ -2,15 +2,22 @@ import { useNavigate } from "react-router-dom";
 import { IBook } from "../../types/book.type";
 import { useDispatch } from "react-redux";
 import { selectBook } from "../../redux/features/books/bookSlice";
+import { useGetSingleBookQuery } from "../../redux/features/books/booksApi";
+import { useAppSelector } from "../../redux/hooks/hook";
 const BookCard = ({ book }: { book: IBook }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+ const selectedBookId = useAppSelector((state)=> state.book.selectedBookId)
+  const { data: singleBook, isLoading: singleBookLoading } = useGetSingleBookQuery(book._id);
   const handleDetailsClick = () => {
-    dispatch(selectBook(book._id));
-    navigate(`/bookdetails/${book._id}`);
+    if (!singleBookLoading && singleBook) {
+      dispatch(selectBook(book._id));
+      navigate(`bookdetails/${book._id}`);
+    }
+     // Additional check to log selectedBookId for debugging
+  console.log("Selected Book ID:", selectedBookId);
   };
-
+ 
   return (
     <div className="bg-white rounded-lg shadow-md p-4">
       <img

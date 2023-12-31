@@ -11,7 +11,7 @@ interface ApiResponse<T> {
 export const bookApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl:
-      "https://book-shop-server-mp3ytvdwe-mdferdousalam.vercel.app/api/v1/books",
+      "https://book-shop-server-smoky.vercel.app/api/v1/books",
   }),
   endpoints: (builder) => ({
     addBook: builder.mutation<IBook, Partial<IBook>>({
@@ -45,7 +45,7 @@ export const bookApi = createApi({
     }),
     getSingleBook: builder.query<ApiResponse<IBook>, string>({
       query: (id) => ({
-        url: `/bookdetails/${id}`,
+        url: `/${id}`,
         method: "GET",
       }),
       transformResponse: (response) => response as ApiResponse<IBook>,

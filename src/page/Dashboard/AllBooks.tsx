@@ -1,6 +1,7 @@
 import { useGetAllBooksQuery } from "../../redux/features/books/booksApi";
-import BookCard from "./BookCard";
+
 import { IBook } from "../../types/book.type";
+import BookCard from "../Books/BookCard";
 
 const AllBooks = () => {
   const { data: apiResponse, isLoading, isError } = useGetAllBooksQuery();
