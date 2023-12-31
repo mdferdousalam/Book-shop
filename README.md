@@ -1,5 +1,5 @@
-###Live Link: https://64c38715035c7b4ec12f71d5--cozy-sundae-8ee5ff.netlify.app/
-server links: Vercel:   https://book-shop-server-4mw3wfr0o-mdferdousalam.vercel.app/
+###Live Link: https://main--cozy-sundae-8ee5ff.netlify.app/
+server links: Vercel:   https://book-shop-server-smoky.vercel.app/
 server link on render: https://book-shop-r8eq.onrender.com/
 
 আমি চেষ্টা করেছিলাম উভয়টা তেই ডেপলয় করে, কিন্তু জস্নিনা কেন সমস্যা দেখা দিচ্ছে। লোকাল হোস্টে ভালো ভাবে কাজ করছে।
