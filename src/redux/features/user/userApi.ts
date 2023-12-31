@@ -4,7 +4,7 @@ import { IUser, IUserLoginResponse } from "../../../types/User";
 export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl:
-      "https://book-shop-server-mp3ytvdwe-mdferdousalam.vercel.app/api/v1/auth",
+      "https://book-shop-server-smoky.vercel.app/api/v1/auth",
   }),
   endpoints: (builder) => ({
     register: builder.mutation<IUser, Partial<IUser>>({
